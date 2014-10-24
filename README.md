@@ -117,7 +117,9 @@ Check the [test/index.html] (https://github.com/floatinghotpot/cordova-plugin-mo
 iPhone Banner | iPhone Interstitial
 -------|---------------
 ![ScreenShot](docs/iphone_banner.jpg) | ![ScreenShot](docs/iphone_interstitial.jpg)
+
 iPhone Landscape
+
 ![ScreenShot](docs/iphone_landscape.jpg)
 
 ## Credits ##
