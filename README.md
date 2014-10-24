@@ -110,7 +110,7 @@ If encounter problem when using the plugin, please read the [FAQ](https://github
 
 This FacebookAds Plugin Pro offers the most flexibility and many options.
 
-Check the [test/index.html] (https://github.com/floatinghotpot/cordova-plugin-mopub/blob/master/test/index.html).
+Check the [test/index.html] (https://github.com/floatinghotpot/cordova-plugin-facebookads/blob/master/test/index.html).
 
 ## Screenshots ##
 
