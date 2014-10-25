@@ -65,14 +65,19 @@ button {
 			}
 
 			registerAdEvents();
+			
+			FacebookAds.setOptions({
+				isTesting: true,
+				deviceHash: '84e8c8a6354be42003e2899aa9e477da'
+			});
+
 			createSelectedBanner();
 		}
 		// optional, in case respond to events or handle error
 		function registerAdEvents() {
 			document.addEventListener('onBannerFailedToReceive',
 					function(data) {
-						alert('error: ' + data.error + ', reason: '
-								+ data.reason);
+						alert('error: ' + data.error + ', reason: ' + data.reason);
 					});
 			document.addEventListener('onBannerReceive', function() {
 			});
@@ -118,17 +123,6 @@ button {
 				position : getSelectedPosition()
 			});
 		}
-		function createBannerOfGivenSize() {
-			var w = document.getElementById('w').value;
-			var h = document.getElementById('h').value;
-
-			FacebookAds.createBanner({
-				adId : adid.banner,
-				width : w,
-				height : h,
-				position : getSelectedPosition()
-			});
-		}
 		function showBannerAtSelectedPosition() {
 			FacebookAds.showBanner(getSelectedPosition());
 		}
@@ -146,8 +140,7 @@ button {
 		}
 		function onResize() {
 			var s = document.getElementById('sizeinfo');
-			s.innerHTML = "web view: " + window.innerWidth + " x "
-					+ window.innerHeight;
+			s.innerHTML = "web view: " + window.innerWidth + " x " + window.innerHeight;
 		}
 	</script>
 	<div id="fullpage">
