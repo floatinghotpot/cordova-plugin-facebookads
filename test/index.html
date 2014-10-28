@@ -68,17 +68,16 @@ button {
 			
 			FacebookAds.setOptions({
 				isTesting: true,
-				deviceHash: '84e8c8a6354be42003e2899aa9e477da'
+				deviceHash: 'copy_your_hash_id_from_console_here'
 			});
 
 			createSelectedBanner();
 		}
 		// optional, in case respond to events or handle error
 		function registerAdEvents() {
-			document.addEventListener('onBannerFailedToReceive',
-					function(data) {
-						alert('error: ' + data.error + ', reason: ' + data.reason);
-					});
+			document.addEventListener('onBannerFailedToReceive', function(data) {
+				alert('error: ' + data.error + ', reason: ' + data.reason);
+			});
 			document.addEventListener('onBannerReceive', function() {
 			});
 			document.addEventListener('onBannerPresent', function() {
@@ -88,11 +87,9 @@ button {
 			document.addEventListener('onBannerDismiss', function() {
 			});
 
-			document.addEventListener('onInterstitialFailedToReceive',
-					function(data) {
-						alert('error: ' + data.error + ', reason: '
-								+ data.reason);
-					});
+			document.addEventListener('onInterstitialFailedToReceive', function(data) {
+				alert('error: ' + data.error + ', reason: ' + data.reason);
+			});
 			document.addEventListener('onInterstitialReceive', function() {
 			});
 			document.addEventListener('onInterstitialPresent', function() {
@@ -140,7 +137,8 @@ button {
 		}
 		function onResize() {
 			var s = document.getElementById('sizeinfo');
-			s.innerHTML = "web view: " + window.innerWidth + " x " + window.innerHeight;
+			s.innerHTML = "web view: " + window.innerWidth + " x "
+					+ window.innerHeight;
 		}
 	</script>
 	<div id="fullpage">

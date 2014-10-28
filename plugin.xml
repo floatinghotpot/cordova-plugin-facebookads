@@ -3,7 +3,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	id="com.rjfun.cordova.facebookads"
-	version="1.0.0">
+	version="1.0.1">
       
     <name>FacebookAds</name>
 	<description>Cordova/PhoneGap Plugin for Facebook Audience Network Ads</description>

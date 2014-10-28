@@ -50,6 +50,12 @@ var ad_units = {
 
 // select the right Ad Id according to platform
 var adid = (/(android)/i.test(navigator.userAgent)) ? ad_units.android : ad_units.ios;
+
+// set your hashed device id if testing on device (optional)
+if(FacebookAds) FacebookAds.setOptions({
+	isTesting: true,
+	deviceHash: 'copy_your_hash_id_from_console_here'
+});
 ```
 
 Step 2: Create a banner with single line of javascript
