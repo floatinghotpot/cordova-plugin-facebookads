@@ -4,7 +4,7 @@ Present Facebook Ads in Mobile App/Games natively from JavaScript.
 
 Highlights:
 - [x] Easy-to-use APIs. Display Ad with single line of Js code.
-- [x] Support Banner, Interstitial Ad, and Video Ad.
+- [x] Support Banner, Interstitial Ad, and Native Ad.
 - [x] One plugin supports both Android and iOS platform.
 - [x] Fixed and overlapped mode.
 - [x] Auto fit on orientation change.
@@ -85,6 +85,10 @@ if(FacebookAds) FacebookAds.prepareInterstitial( {adId:adid.interstitial, autoSh
 if(FacebookAds) FacebookAds.showInterstitial();
 ```
 
+You can even embed the Ad into web content with Native Ad.
+
+Check the example code [test/index.html] (https://github.com/floatinghotpot/cordova-plugin-facebookads/blob/master/test/index.html)
+
 ## Javascript API Overview ##
 
 Methods:
@@ -100,6 +104,10 @@ hideBanner();
 // for interstitial
 prepareInterstitial(adId/options, success, fail);
 showInterstitial();
+// for native ad
+createNativeAd(adId, success, fail);
+removeNativeAd(adId);
+setNativeAdClickArea(adId,x,y,w,h);
 ```
 
 ## Detailed Documentation ##
@@ -127,6 +135,10 @@ iPhone Banner | iPhone Interstitial
 iPhone Landscape
 
 ![ScreenShot](docs/iphone_landscape.jpg)
+
+iPhone Native Ad | Android Native Ad
+-------|---------------
+![ScreenShot](docs/iphone_nativead.jpg) | ![ScreenShot](docs/android_nativead.jpg)
 
 ## Credits ##
 
