@@ -47,12 +47,12 @@ button {
 
 		var ad_units = {
 			ios : { 
-				banner:"577571115610927_876258762408826",
-				interstitial:"577571115610927_876258762408826"
+				banner:"1537086959841884_1538124696404777",
+				interstitial:"1537086959841884_1538124856404761"
 			},
 			android : {
-				banner:"577571115610927_876258762408826",
-				interstitial:"577571115610927_876258762408826"
+				banner:"1537086959841884_1538124696404777",
+				interstitial:"1537086959841884_1538124856404761"
 			}
 		};
 
@@ -83,7 +83,7 @@ button {
 				var x = offset.left - $(window).scrollLeft();
 				var w = $("#nativead").width();
 				var h = $("#nativead").height();
-				FacebookAds.setNativeAdClickArea(nativeId, x, y, w, h);
+				if(FacebookAds) FacebookAds.setNativeAdClickArea(nativeId, x, y, w, h);
 			}
 		}
 		$(window).scroll(function(){
@@ -98,19 +98,13 @@ button {
 				if (data.adType == "native") {
 					var adRes = data.adRes;
 					//alert( JSON.stringify(adRes) );
-
+			
 					// show ad
 					nativeId = data.adId;
-					var nativeAdContent = adRes.title
-							+ '<br/>'
+					var nativeAdContent = adRes.title + '<br/>'
 							+ adRes.body
-							+ "<br/>rating: "
-							+ adRes.rating
-							+ ", "
-							+ adRes.buttonText
-							+ "<br/>"
-							+ adRes.socialContext
-							+ "<br/>"
+							+ "<br/>rating: " + adRes.rating + ", " + adRes.buttonText + "<br/>"
+							+ adRes.socialContext + "<br/>"
 							+ "<img src='" + adRes.icon.url + "' width='" + adRes.icon.width + "' height='" + adRes.icon.height + "'/><br/>"
 							//+ "<img src='" + adRes.coverImage.url + "' width='" + adRes.coverImage.width + "' height='" + adRes.coverImage.height + "'/>"
 							;
@@ -148,16 +142,16 @@ button {
 			});
 		}
 		function showBannerAtSelectedPosition() {
-			FacebookAds.showBanner(getSelectedPosition());
+			if(FacebookAds) FacebookAds.showBanner(getSelectedPosition());
 		}
 		function showBannerAtGivenXY() {
 			var x = document.getElementById('x').value;
 			var y = document.getElementById('y').value;
-			FacebookAds.showBannerAtXY(x, y);
+			if(FacebookAds) FacebookAds.showBannerAtXY(x, y);
 		}
 		function prepareInterstitial() {
 			var autoshow = document.getElementById('autoshow').checked;
-			FacebookAds.prepareInterstitial({
+			if(FacebookAds) FacebookAds.prepareInterstitial({
 				adId : adid.interstitial,
 				autoShow : autoshow
 			});
@@ -168,11 +162,11 @@ button {
 					+ window.innerHeight;
 		}
 		function createNativeAd() {
-			FacebookAds.createNativeAd(adid.banner);
+			if(FacebookAds) FacebookAds.createNativeAd(adid.banner);
 		}
 		function removeNativeAd() {
 			$('#nativead').html("<br/>");
-			FacebookAds.removeNativeAd(nativeId);
+			if(FacebookAds) FacebookAds.removeNativeAd(nativeId);
 		}
 	</script>
 	<div id="fullpage">
