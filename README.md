@@ -140,37 +140,19 @@ iPhone Native Ad | Android Native Ad
 -------|---------------
 ![ScreenShot](docs/iphone_nativead.jpg) | ![ScreenShot](docs/android_nativead.jpg)
 
-## Credits ##
+Ad PluginPro series for the world leading Mobile Ad services:
 
-This FacebookAds Plugin Pro is published in a win-win partnership model:
-- It's FREE. 
-- It's closed source.
-- 2% Ad traffic will be shared, as return for the support and maintenance effort.
-- You will get commercial-level support with high priority, prompt and professional.
+* [GoogleAds PluginPro](https://github.com/floatinghotpot/cordova-admob-pro), for Google AdMob/DoubleClick.
+* [iAd PluginPro](https://github.com/floatinghotpot/cordova-iad-pro), for Apple iAd. 
+* [FacebookAds PluginPro](https://github.com/floatinghotpot/cordova-plugin-facebookads), for Facebook Audience Network.
+* [FlurryAds PluginPro](https://github.com/floatinghotpot/cordova-plugin-flurry), for Flurry Ads.
+* [mMedia PluginPro](https://github.com/floatinghotpot/cordova-plugin-mmedia), for Millennial Meida.
+* [MobFox PluginPro](https://github.com/floatinghotpot/cordova-mobfox-pro), for MobFox.
+* [MoPub PluginPro](https://github.com/floatinghotpot/cordova-plugin-mopub), for MoPub.
 
-If you hope to make the Ad 100% under your control and keep 100% Ad revenue, you can also consider spending $20 to [get a license key](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=H3EYC4JZNSRRS) to remove the 2% Ad traffic sharing.
-It's much cheaper than [the $50 iOS only AdMob plugin for unity](https://prime31.com/plugins). 
+More Cordova/PhoneGap plugins by Raymond Xie, [find them in plugin registry](http://plugins.cordova.io/#/search?search=rjfun).
 
-Then set the license key in options (either API setOptions, or createBanner, or prepareInterstitial):
-```javascript
-    license: 'username@gmail.com/xxxxxxxxxxxxxxx',
-```
+If use in commercial project or need prompt support, please [buy a license](http://rjfun.github.io/), you will be served with high priority.
 
-FacebookAds Plugin Pro is one of the best choice for HTML5/Cordova/PhoneGap/XDK/Construct2 app/games.
-
-## See Also ##
-
-Cordova/PhoneGap plugins for the world leading Mobile Ad services:
-
-* [AdMob Plugin Pro](https://github.com/floatinghotpot/cordova-admob-pro), enhanced Google AdMob plugin, easy API and more features.
-* [mMedia Plugin Pro](https://github.com/floatinghotpot/cordova-plugin-mmedia), enhanced mMedia plugin, support impressive video Ad.
-* [iAd Plugin](https://github.com/floatinghotpot/cordova-plugin-iad), Apple iAd service. 
-* [FlurryAds Plugin](https://github.com/floatinghotpot/cordova-plugin-flurry), Yahoo Flurry Ads service.
-* [MobFox Plugin Pro](https://github.com/floatinghotpot/cordova-mobfox-pro), enhanced MobFox plugin, support video Ad and many other Ad network with server-side integration.
-* [MoPub Plugin Pro](https://github.com/floatinghotpot/cordova-plugin-mopub), MobPub Ads service.
-* [FacebookAds Plugin Pro](https://github.com/floatinghotpot/cordova-plugin-facebookads), Facebook Audience Network Ads service.
-
-More Cordova/PhoneGap plugins by Raymond Xie, [click here](http://floatinghotpot.github.io/).
-
-Project outsourcing and consulting service is also available. Please [contact us](http://floatinghotpot.github.io) if you have the business needs.
+Project outsourcing and consulting service is also available. Please [contact us](mailto:rjfun.mobile@gmail.com) if you have the business needs.
 
