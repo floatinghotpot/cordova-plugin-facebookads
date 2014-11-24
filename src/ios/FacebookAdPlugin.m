@@ -60,6 +60,7 @@
 {
     [super pluginInitialize];
     
+    self.adSize = [self __AdSizeFromString:@"SMART_BANNER"];
     self.nativeads = [[NSMutableDictionary alloc] init];
 }
 
@@ -82,21 +83,7 @@
     FBAdSize sz;
     if ([str isEqualToString:@"BANNER"]) {
         sz = kFBAdSize320x50;
-    } else if ([str isEqualToString:@"FULL_BANNER"]) {
-        sz.size.width = 468;
-        sz.size.height = 60;
-    } else if ([str isEqualToString:@"MEDIUM_RECTANGLE"]) {
-        sz.size.width = 300;
-        sz.size.height = 250;
-    } else if ([str isEqualToString:@"LEADERBOARD"]) {
-        sz.size.width = 728;
-        sz.size.height = 90;
-    } else if ([str isEqualToString:@"SKYSCRAPER"]) {
-        sz.size.width = 160;
-        sz.size.height = 600;
-    } else if ([str isEqualToString:@"CUSTOM"]) {
-        sz.size.width = 0;
-        sz.size.height = 0;
+    // other size not supported by facebook audience network: FULL_BANNER, MEDIUM_RECTANGLE, LEADERBOARD, SKYSCRAPER
     //} else if ([str isEqualToString:@"SMART_BANNER"]) {
     } else {
         BOOL isIPAD = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad);

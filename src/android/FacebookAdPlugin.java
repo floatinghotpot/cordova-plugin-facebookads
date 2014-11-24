@@ -35,6 +35,8 @@ public class FacebookAdPlugin extends GenericAdPlugin {
     private static final String TEST_INTERSTITIAL_ID = "1537086959841884_1538124856404761";
     private static final String TEST_NATIVEAD_ID = "1537086959841884_1538457186371528";
     
+    private AdSize adSize;
+    
 	private static final String OPT_DEVICE_HASH = "deviceHash";
 	private String deviceHash = "";
 
@@ -57,8 +59,28 @@ public class FacebookAdPlugin extends GenericAdPlugin {
     protected void pluginInitialize() {
     	super.pluginInitialize();
     	
-    	// TODO: any init code
+    	this.adSize = __AdSizeFromString("SMART_BANNER");
 	}
+    
+    protected AdSize __AdSizeFromString(String str) {
+    	AdSize sz;
+    	if("BANNER".equals(str)) {
+    		sz = AdSize.BANNER_320_50;
+    	// other size not supported by facebook audience network: FULL_BANNER, MEDIUM_RECTANGLE, LEADERBOARD, SKYSCRAPER
+    	//} else if ("SMART_BANNER".equals(str)) {
+    	} else {
+    		sz = isTablet() ? AdSize.BANNER_HEIGHT_90 : AdSize.BANNER_HEIGHT_50;
+    	}
+    	
+    	return sz;
+    }
+    
+	public boolean isTablet() {
+		Configuration conf = getActivity().getResources().getConfiguration();
+        boolean xlarge = ((conf.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == 4);
+        boolean large = ((conf.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE);
+        return (xlarge || large);
+    }
 
 	@Override
 	protected String __getProductShortName() {
@@ -281,6 +303,10 @@ public class FacebookAdPlugin extends GenericAdPlugin {
 	public void setOptions(JSONObject options) {
 		super.setOptions(options);
 		
+		if(options.has(OPT_AD_SIZE)) {
+			this.adSize = __AdSizeFromString(options.optString(OPT_AD_SIZE));
+		}
+		
 		if(isTesting) {
 			testTraffic = true;
 			
@@ -301,18 +327,10 @@ public class FacebookAdPlugin extends GenericAdPlugin {
 		}
 	}
 
-	public boolean isTablet() {
-		Configuration conf = getActivity().getResources().getConfiguration();
-        boolean xlarge = ((conf.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == 4);
-        boolean large = ((conf.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE);
-        return (xlarge || large);
-    }
-
 	@Override
 	protected View __createAdView(String adId) {
 		if(isTesting) adId = TEST_BANNER_ID;
-		AdSize sz = isTablet() ? AdSize.BANNER_HEIGHT_90 : AdSize.BANNER_HEIGHT_50;
-		AdView ad = new AdView(getActivity(), adId, sz);
+		AdView ad = new AdView(getActivity(), adId, adSize);
         ad.setAdListener(new AdListener(){
     		@Override
     		public void onAdClicked(Ad arg0) {
