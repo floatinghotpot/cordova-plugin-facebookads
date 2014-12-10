@@ -21,7 +21,7 @@
         <clobbers target="window.FacebookAds" />
     </js-module>
 
-	<dependency id="com.rjfun.cordova.ad"/>
+	<dependency id="com.rjfun.cordova.extension"/>
     <dependency id="com.facebook.audiencenetwork.sdk"/>
 
     <!-- android -->
