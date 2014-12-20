@@ -25,7 +25,6 @@ import android.widget.RelativeLayout;
 import com.facebook.ads.*;
 import com.facebook.ads.NativeAd.Image;
 import com.facebook.ads.NativeAd.Rating;
-import com.facebook.ads.internal.StringUtils;
 import com.rjfun.cordova.ad.GenericAdPlugin;
 
 public class FacebookAdPlugin extends GenericAdPlugin {
@@ -319,7 +318,7 @@ public class FacebookAdPlugin extends GenericAdPlugin {
 			SharedPreferences adPrefs = getActivity().getSharedPreferences("FBAdPrefs", 0);
 			String deviceIdHash = adPrefs.getString("deviceIdHash", (String)null);
             if (deviceIdHash == null) {
-            	deviceIdHash = StringUtils.md5(UUID.randomUUID().toString());
+            	deviceIdHash = this.md5(UUID.randomUUID().toString());
                 adPrefs.edit().putString("deviceIdHash", deviceIdHash).commit();
             }
             Log.d(LOGTAG, "auto set device hash: " + this.deviceHash);
