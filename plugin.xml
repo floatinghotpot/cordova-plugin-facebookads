@@ -2,11 +2,11 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	id="com.rjfun.cordova.facebookads"
-	version="3.23.1">
+	id="cordova-plugin-facebookads"
+	version="4.2.3">
       
     <name>FacebookAds</name>
-	<description>Cordova/PhoneGap Plugin for Facebook Audience Network Ads</description>
+	<description>Cordova/PhoneGap Plugin for Facebook AudienceNetwork Ads</description>
 	<author>Liming Xie</author>
 	<license>MIT</license>
 	<keywords>rjfun,ad,admob,iad,mopub,facebook,audience</keywords>
@@ -21,7 +21,7 @@
         <clobbers target="window.FacebookAds" />
     </js-module>
 
-	<dependency id="com.rjfun.cordova.extension"/>
+	<dependency id="cordova-plugin-extension"/>
 
     <!-- android -->
     <platform name="android">
@@ -31,8 +31,6 @@
             </feature>
         </config-file>
         <source-file src="src/android/FacebookAdPlugin.java" target-dir="src/com/rjfun/cordova/facebookads" />
-		
-	    <dependency id="android.support.v4"/>
 
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
 			<activity android:name="com.facebook.ads.InterstitialAdActivity" 
@@ -44,6 +42,8 @@
         </config-file>
           
         <source-file src="src/android/AudienceNetwork.jar" target-dir="libs" />
+
+        <framework src="com.android.support:support-v4:+" />
      </platform>
      
      <!-- ios -->
@@ -65,6 +65,6 @@
         <framework src="QuartzCore.framework"/>
         <framework src="OpenGLES.framework"/>
         <framework src="Security.framework"/>
-	</platform>
+    </platform>
 
 </plugin>

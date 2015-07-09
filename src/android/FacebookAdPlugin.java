@@ -215,7 +215,6 @@ public class FacebookAdPlugin extends GenericAdPlugin {
 					adRes.put("socialContext", socialContextForAd);
 					adRes.put("buttonText", titleForAdButton);
 					adRes.put("body", textForAdBody);
-
                     if(appRatingForAd != null) {
                         adRes.put("rating", appRatingForAd.getValue());
                         adRes.put("ratingScale", appRatingForAd.getScale());

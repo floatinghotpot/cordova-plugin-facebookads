@@ -1,0 +1,33 @@
+{
+  "name": "cordova-plugin-facebookads",
+  "version": "4.2.3",
+  "description": "Cordova Plugin for Facebook AudienceNetwork Ads",
+  "cordova": {
+    "id": "cordova-plugin-facebookads",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/floatinghotpot/cordova-plugin-facebookads.git"
+  },
+  "bugs": {
+    "url": "https://github.com/floatinghotpot/cordova-plugin-facebookads/issues"
+  },
+  "keywords": [
+    "cordova",
+    "ecosystem:cordova",
+    "ad",
+    "admob",
+    "facebook",
+    "audiencenetwork",
+    "rjfun"
+  ],
+  "author": {
+    "name": "Raymond Xie",
+    "email": "rjfun.mobile@gmail.com"
+  },
+  "license": "MIT"
+}

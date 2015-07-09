@@ -1,6 +1,6 @@
-# Cordova Plugin for Facebook Audience Network #
+# Cordova Plugin for Facebook AudienceNetwork #
 
-Present Facebook Ads in Mobile App/Games natively from JavaScript. 
+Present Facebook AudienceNetwork Ads in Mobile App/Games natively from JavaScript.
 
 Highlights:
 - [x] Easy-to-use APIs. Display Ad with single line of Js code.
@@ -15,12 +15,26 @@ Compatible with:
 * Cordova CLI, v3.5+
 * Intel XDK and Crosswalk, r1095+
 * IBM Worklight, v6.2+
+* Adobe PhoneGap Build Cloud Service
+
+### Quick Demo ###
+
+```bash
+# install cordova CLI
+[sudo] npm install cordova -g
+
+# install a small utility to run all the commands for you
+[sudo] npm install plugin-verify -g
+
+# Demo 1: run admob demo with sample index.html
+plugin-verify cordova-plugin-facebookads
+```
 
 ## How to use? ##
 
 If use with Cordova CLI:
 ```
-cordova plugin add com.rjfun.cordova.facebookads
+cordova plugin add cordova-plugin-facebookads
 ```
 
 If use with Intel XDK:
