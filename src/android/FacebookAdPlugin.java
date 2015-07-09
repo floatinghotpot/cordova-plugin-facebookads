@@ -215,18 +215,25 @@ public class FacebookAdPlugin extends GenericAdPlugin {
 					adRes.put("socialContext", socialContextForAd);
 					adRes.put("buttonText", titleForAdButton);
 					adRes.put("body", textForAdBody);
-					adRes.put("rating", appRatingForAd.getValue());
-					adRes.put("ratingScale", appRatingForAd.getScale());
+
+                    if(appRatingForAd != null) {
+                        adRes.put("rating", appRatingForAd.getValue());
+                        adRes.put("ratingScale", appRatingForAd.getScale());
+                    }
 					
 					JSONObject coverInfo = new JSONObject();
-					coverInfo.put("url", coverImage.getUrl());
-					coverInfo.put("width", coverImage.getWidth());
-					coverInfo.put("height", coverImage.getHeight());
+                    if(coverImage != null) {
+                        coverInfo.put("url", coverImage.getUrl());
+                        coverInfo.put("width", coverImage.getWidth());
+                        coverInfo.put("height", coverImage.getHeight());
+                    }
 					
 					JSONObject iconInfo = new JSONObject();
-					iconInfo.put("url", iconForAd.getUrl());
-					iconInfo.put("width", iconForAd.getWidth());
-					iconInfo.put("height", iconForAd.getHeight());
+                    if(iconForAd != null) {
+                        iconInfo.put("url", iconForAd.getUrl());
+                        iconInfo.put("width", iconForAd.getWidth());
+                        iconInfo.put("height", iconForAd.getHeight());
+                    }
 					
 					adRes.put("coverImage", coverInfo);
 					adRes.put("icon", iconInfo);

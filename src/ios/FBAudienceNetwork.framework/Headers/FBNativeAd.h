@@ -1,23 +1,34 @@
-/*
- * Copyright 2010-present Facebook.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
+//
+// You are hereby granted a non-exclusive, worldwide, royalty-free license to use,
+// copy, modify, and distribute this software in source code or binary form for use
+// in connection with the web services and APIs provided by Facebook.
+//
+// As with any software that integrates with the Facebook platform, your use of
+// this software is subject to the Facebook Developer Principles and Policies
+// [http://developers.facebook.com/policy/]. This copyright notice shall be
+// included in all copies or substantial portions of the software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+// FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+// COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+// IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+// CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import "FBAdImage.h"
-#import "FBAdView.h"
+#import <UIKit/UIKit.h>
+
+#import "FBAdDefines.h"
 
 @protocol FBNativeAdDelegate;
+@class FBAdImage;
+
+typedef NS_ENUM(NSInteger, FBNativeAdsCachePolicy) {
+    FBNativeAdsCachePolicyNone = 0,
+    FBNativeAdsCachePolicyIcon = 0x1,
+    FBNativeAdsCachePolicyCoverImage = 0x2,
+    FBNativeAdsCachePolicyAll = FBNativeAdsCachePolicyCoverImage | FBNativeAdsCachePolicyIcon,
+};
 
 /*!
  @class FBNativeAd
@@ -26,6 +37,7 @@
  The FBNativeAd represents ad metadata to allow you to construct custom ad views.
  See the NativeAdSample in the sample apps section of the Audience Network framework.
  */
+FB_CLASS_EXPORT
 @interface FBNativeAd : NSObject
 
 /*!
@@ -43,6 +55,11 @@
  @abstract Typed access to the ad title.
  */
 @property (nonatomic, copy, readonly) NSString *title;
+/*!
+ @property
+ @abstract Typed access to the ad subtitle.
+ */
+@property (nonatomic, copy, readonly) NSString *subtitle;
 /*!
  @property
  @abstract Typed access to the ad social context, for example "Over half a million users".
@@ -70,6 +87,12 @@
 @property (nonatomic, copy, readonly) NSString *body;
 /*!
  @property
+
+ @abstract Set the native ad caching policy. This controls which media from the native ad are cached before the native ad calls nativeAdLoaded on its delegate. The default is to not block on caching.
+ */
+@property (nonatomic, assign) FBNativeAdsCachePolicy mediaCachePolicy;
+/*!
+ @property
  @abstract the delegate
  */
 @property (nonatomic, weak) id<FBNativeAdDelegate> delegate;
@@ -82,7 +105,7 @@
 
  @param placementID The id of the ad placement. You can create your placement id from Facebook developers page.
  */
-- (instancetype)initWithPlacementID:(NSString *)placementID;
+- (instancetype)initWithPlacementID:(NSString *)placementID NS_DESIGNATED_INITIALIZER;
 
 /*!
  @method
@@ -136,13 +159,13 @@
 - (void)loadAd;
 
 /*!
- @method
+ @property
 
  @abstract
  Call isAdValid to check whether native ad is valid & internal consistent prior rendering using its properties. If
  rendering is done as part of the loadAd callback, it is guarantee to be consistent
  */
-- (BOOL)isAdValid;
+@property (nonatomic, getter=isAdValid, readonly) BOOL adValid;
 
 @end
 
@@ -197,6 +220,7 @@
  @param nativeAd An FBNativeAd object sending the message.
  */
 - (void)nativeAdDidClick:(FBNativeAd *)nativeAd;
+
 /*!
  @method
 
@@ -211,3 +235,101 @@
 
 @end
 
+/*!
+ @class FBAdStarRating
+
+ @abstract
+ Represents the Facebook ad star rating, which contains the rating value and rating scale.
+ */
+FB_EXPORT struct FBAdStarRating {
+  CGFloat value;
+  NSInteger scale;
+} FBAdStarRating;
+
+/*!
+ @class FBAdImage
+
+ @abstract Represents an image creative.
+ */
+FB_CLASS_EXPORT
+@interface FBAdImage : NSObject
+
+/*!
+ @property
+ @abstract Typed access to the image url.
+ */
+@property (nonatomic, copy, readonly) NSURL *url;
+/*!
+ @property
+ @abstract Typed access to the image width.
+ */
+@property (nonatomic, assign, readonly) NSInteger width;
+/*!
+ @property
+ @abstract Typed access to the image height.
+ */
+@property (nonatomic, assign, readonly) NSInteger height;
+
+/*!
+ @method
+
+ @abstract
+ This is a method to initialize an FBAdImage.
+
+ @param url the image url.
+ @param width the image width.
+ @param height the image height.
+ */
+- (instancetype)initWithURL:(NSURL *)url width:(NSInteger)width height:(NSInteger)height NS_DESIGNATED_INITIALIZER;
+
+/*!
+ @method
+
+ @abstract
+ Loads an image from self.url over the network, or returns the cached image immediately.
+
+ @param block Block to handle the loaded image.
+ */
+- (void)loadImageAsyncWithBlock:(void (^)(UIImage * image))block;
+
+@end
+
+/*!
+ @class FBAdStarRatingView
+
+ @abstract
+ Helper view that draws a star rating based off a native ad.
+ */
+FB_CLASS_EXPORT
+@interface FBAdStarRatingView : UIView
+
+/*!
+ @property
+ @abstract The current rating from an FBNativeAd. When set, updates the view.
+ */
+@property (nonatomic) struct FBAdStarRating rating;
+
+/*!
+ @property
+ @abstract The color drawn for filled-in stars. Defaults to yellow.
+ */
+@property (strong, nonatomic) UIColor *primaryColor;
+
+/*!
+ @property
+ @abstract The color drawn for empty stars. Defaults to gray.
+ */
+@property (strong, nonatomic) UIColor *secondaryColor;
+
+/*!
+ @method
+
+ @abstract
+ Initializes a star rating view with a given frame and star rating.
+
+ @param frame Frame of this view.
+ @param starRating Star rating from a native ad.
+ */
+- (instancetype)initWithFrame:(CGRect)frame withStarRating:(struct FBAdStarRating)starRating NS_DESIGNATED_INITIALIZER;
+
+@end

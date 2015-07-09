@@ -61,6 +61,10 @@
         <framework src="AdSupport.framework"/>
         <framework src="StoreKit.framework"/>
         <framework src="CoreMotion.framework"/>
+        <framework src="CoreImage.framework"/>
+        <framework src="QuartzCore.framework"/>
+        <framework src="OpenGLES.framework"/>
+        <framework src="Security.framework"/>
 	</platform>
 
 </plugin>

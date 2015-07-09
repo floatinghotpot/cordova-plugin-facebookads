@@ -1,67 +1,35 @@
-/*
- * Copyright 2010-present Facebook.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
+//
+// You are hereby granted a non-exclusive, worldwide, royalty-free license to use,
+// copy, modify, and distribute this software in source code or binary form for use
+// in connection with the web services and APIs provided by Facebook.
+//
+// As with any software that integrates with the Facebook platform, your use of
+// this software is subject to the Facebook Developer Principles and Policies
+// [http://developers.facebook.com/policy/]. This copyright notice shall be
+// included in all copies or substantial portions of the software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+// FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+// COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+// IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+// CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import <StoreKit/StoreKit.h>
 #import <UIKit/UIKit.h>
 
+#import "FBAdDefines.h"
+#import "FBAdSize.h"
+
 @protocol FBAdViewDelegate;
-
-/*!
- @typedef FBAdSize
-
- @abstract
- Represents the ad size.
- */
-typedef struct FBAdSize {
-  CGSize size;
-} FBAdSize;
-
-/*!
- @abstract Represents the fixed banner ad size - 320pt by 50pt.
- */
-extern FBAdSize const kFBAdSize320x50;
-
-/*!
- @abstract Represents the flexible banner ad size, where banner width depends on
- its container width, and banner height is fixed as 50pt.
- */
-extern FBAdSize const kFBAdSizeHeight50Banner;
-
-/*!
- @abstract Represents the flexible banner ad size, where banner width depends on
- its container width, and banner height is fixed as 90pt.
- */
-extern FBAdSize const kFBAdSizeHeight90Banner;
-
-/*!
- @abstract Represents the interstitial ad size.
- */
-extern FBAdSize const kFBAdSizeInterstital;
-
-/*!
- @abstract Represents the flexible rectangle ad size, where width depends on
- its container width, and height is fixed as 250pt.
- */
-extern FBAdSize const kFBAdSizeHeight250Rectangle;
 
 /*!
  @class FBAdView
 
  @abstract A customized UIView to represent a Facebook ad (a.k.a. banner ad).
  */
+FB_CLASS_EXPORT
 @interface FBAdView : UIView
 
 /*!
@@ -72,7 +40,7 @@ extern FBAdSize const kFBAdSizeHeight250Rectangle;
 
  @param placementID The id of the ad placement. You can create your placement id from Facebook developers page.
  @param adSize The size of the ad; for example, kFBAdSizeHeight50Banner or kFBAdSizeHeight90Banner.
- @param rootViewController The view controller that will be used to present the ad and the app store view.
+ @param viewController The view controller that will be used to present the ad and the app store view.
  */
 - (instancetype)initWithPlacementID:(NSString *)placementID
                              adSize:(FBAdSize)adSize
@@ -197,4 +165,3 @@ extern FBAdSize const kFBAdSizeHeight250Rectangle;
 - (UIViewController *)viewControllerForPresentingModalView;
 
 @end
-

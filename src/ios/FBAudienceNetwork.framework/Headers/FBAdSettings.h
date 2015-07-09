@@ -1,41 +1,57 @@
-/*
- * Copyright 2010-present Facebook.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
+//
+// You are hereby granted a non-exclusive, worldwide, royalty-free license to use,
+// copy, modify, and distribute this software in source code or binary form for use
+// in connection with the web services and APIs provided by Facebook.
+//
+// As with any software that integrates with the Facebook platform, your use of
+// this software is subject to the Facebook Developer Principles and Policies
+// [http://developers.facebook.com/policy/]. This copyright notice shall be
+// included in all copies or substantial portions of the software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+// FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+// COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+// IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+// CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 #import <Foundation/Foundation.h>
 
-extern NSString *const FacebookAdsSDKErrorDomain;
+#import "FBAdDefines.h"
+
+FB_EXPORT NSString *const FBAudienceNetworkErrorDomain;
+
+typedef NS_ENUM(NSInteger, FBAdLogLevel) {
+    FBAdLogLevelNone,
+    FBAdLogLevelNotification,
+    FBAdLogLevelError,
+    FBAdLogLevelWarning,
+    FBAdLogLevelLog,
+    FBAdLogLevelDebug,
+    FBAdLogLevelVerbose
+};
 
 /*!
  @class FBAdSettings
 
  @abstract AdSettings contains global settings for all ad controls.
  */
+FB_CLASS_EXPORT
 @interface FBAdSettings : NSObject
 
 /*!
-@method
+ @method
 
-@abstract
+ @abstract
  Adds a test device.
 
-@param deviceHash The id of the device to use test mode, can be obtained from debug log
+ @param deviceHash The id of the device to use test mode, can be obtained from debug log
 
-@discussion
+ @discussion
  Copy the current device Id from debug log and add it as a test device to get test ads. Apps
  running on emulator will automatically get test ads. Test devices should be added before loadAd is called.
-*/
+ */
 + (void)addTestDevice:(NSString *)deviceHash;
 
 /*!
@@ -44,7 +60,7 @@ extern NSString *const FacebookAdsSDKErrorDomain;
  @abstract
  Add a collection of test devices. See `+addTestDevices:` for details.
 
- @param deviceHash The array of the device id to use test mode, can be obtained from debug log
+ @param devicesHash The array of the device id to use test mode, can be obtained from debug log
  */
 + (void)addTestDevices:(NSArray *)devicesHash;
 
@@ -80,5 +96,21 @@ extern NSString *const FacebookAdsSDKErrorDomain;
  This method should never be used in production.
  */
 + (void)setUrlPrefix:(NSString *) urlPrefix;
+
+/*!
+ @method
+
+ @abstract
+ Gets the current SDK logging level
+ */
++ (FBAdLogLevel)getLogLevel;
+
+/*!
+ @method
+
+ @abstract
+ Sets the current SDK logging level
+ */
++ (void)setLogLevel:(FBAdLogLevel)level;
 
 @end
