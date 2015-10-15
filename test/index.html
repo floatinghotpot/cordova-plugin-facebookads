@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8" />
+<meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'"/>
 <meta name="format-detection" content="telephone=no" />
 <meta name="viewport"
 	content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
@@ -47,12 +48,14 @@ button {
 
 		var ad_units = {
 			ios : { 
-				banner:"1537086959841884_1538124696404777",
-				interstitial:"1537086959841884_1538124856404761"
+				banner:"726719434140206_777151452430337",
+				interstitial:"726719434140206_777151589096990",
+                nativeAd:"726719434140206_777151705763645"
 			},
 			android : {
-				banner:"1537086959841884_1538124696404777",
-				interstitial:"1537086959841884_1538124856404761"
+				banner:"726719434140206_777151452430337",
+				interstitial:"726719434140206_777151589096990",
+                nativeAd:"726719434140206_777151705763645"
 			}
 		};
 
@@ -69,7 +72,7 @@ button {
 			
 			FacebookAds.setOptions({
 				isTesting: true,
-				deviceHash: 'f65725e19630c239a9545e9df199a49e279688e2'
+				deviceHash: 'fdc5f2914ce1d0642d7311b901489253cacbf80e'
 			});
 
 			createSelectedBanner();
@@ -162,7 +165,7 @@ button {
 					+ window.innerHeight;
 		}
 		function createNativeAd() {
-			if(FacebookAds) FacebookAds.createNativeAd(adid.banner);
+			if(FacebookAds) FacebookAds.createNativeAd(adid.nativeAd);
 		}
 		function removeNativeAd() {
 			$('#nativead').html("<br/>");
