@@ -1,30 +1,13 @@
 # Cordova Plugin for Facebook AudienceNetwork #
 
-Present Facebook AudienceNetwork Ads in Mobile App/Games natively from JavaScript.
-
-Highlights:
-- [x] Easy-to-use APIs. Display Ad with single line of Js code.
-- [x] Support Banner, Interstitial Ad, and Native Ad.
-- [x] One plugin supports both Android and iOS platform.
-- [x] Fixed and overlapped mode.
-- [x] Auto fit on orientation change.
-- [x] Actively maintained, prompt support.
-
-Compatible with:
-
-* Cordova CLI, v3.5+
-* Intel XDK and Crosswalk, r1095+
-* IBM Worklight, v6.2+
-* Adobe PhoneGap Build Cloud Service
-
-### Quick Demo ###
+# Quick Demo
 
 ```bash
 # install cordova CLI
-[sudo] npm install cordova -g
+[sudo] npm install -g cordova
 
 # install a small utility to run all the commands for you
-[sudo] npm install plugin-verify -g
+[sudo] npm install -g plugin-verify
 
 # Demo 1: run admob demo with sample index.html
 plugin-verify cordova-plugin-facebookads
@@ -54,11 +37,13 @@ Step 1: Prepare your Facebook Audience Network Placement Id for your app, create
 var ad_units = {
 	ios : { 
 		banner:"your_ad_place_id",
-		interstitial:"your_ad_place_id"
+		interstitial:"your_ad_place_id",
+        nativeAd:'your_ad_place_id"
 	},
 	android : {
 		banner:"your_ad_place_id",
-		interstitial:"your_ad_place_id"
+		interstitial:"your_ad_place_id",
+        nativeAd:'your_ad_place_id"
 	}
 };
 
@@ -109,15 +94,18 @@ Methods:
 ```javascript
 // set default value for other methods
 setOptions(options, success, fail);
+
 // for banner
 createBanner(adId/options, success, fail);
 removeBanner();
 showBanner(position);
 showBannerAtXY(x, y);
 hideBanner();
+
 // for interstitial
 prepareInterstitial(adId/options, success, fail);
 showInterstitial();
+
 // for native ad
 createNativeAd(adId, success, fail);
 removeNativeAd(adId);
@@ -164,7 +152,7 @@ Ad PluginPro series for the world leading Mobile Ad services:
 * [MobFox PluginPro](https://github.com/floatinghotpot/cordova-mobfox-pro), for MobFox.
 * [MoPub PluginPro](https://github.com/floatinghotpot/cordova-plugin-mopub), for MoPub.
 
-More Cordova/PhoneGap plugins by Raymond Xie, [find them in plugin registry](http://plugins.cordova.io/#/search?search=rjfun).
+More Cordova/PhoneGap plugins by Raymond Xie, [find them in npm](https://www.npmjs.com/~floatinghotpot).
 
 If use in commercial project or need prompt support, please [buy a license](http://rjfun.github.io/), you will be served with high priority.
 
