@@ -19,8 +19,10 @@ import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnTouchListener;
 import android.widget.RelativeLayout;
 import com.facebook.ads.*;
 import com.facebook.ads.NativeAd.Image;
@@ -50,6 +52,7 @@ public class FacebookAdPlugin extends GenericAdPlugin {
 		public int x, y, w, h;
 		public NativeAd	ad;
 		public View view;
+		public View tracking;
 	};
 	
 	private HashMap<String, FlexNativeAd> nativeAds = new HashMap<String, FlexNativeAd>();
@@ -158,11 +161,52 @@ public class FacebookAdPlugin extends GenericAdPlugin {
             	unit.w = unit.h = 80;
             	
             	unit.view = new View(getActivity());
+				unit.tracking = new View(getActivity());
             	layout.addView(unit.view, new RelativeLayout.LayoutParams(unit.w, unit.h));
+				layout.addView(unit.tracking, new RelativeLayout.LayoutParams(unit.w, unit.h));
             	if(isTesting) {
                 	unit.view.setBackgroundColor(0x3000FF00);
             	}
-            	
+
+				// pass scroll event in tracking view to webview to improve UX
+				final View webV = getView();
+				final View trackingV = unit.tracking;
+				final View touchV = unit.view;
+				OnTouchListener t = new OnTouchListener(){
+					public float mTapX = 0, mTapY = 0;
+
+					@Override
+					public boolean onTouch(View v, MotionEvent evt) {
+						switch(evt.getAction()) {
+							case MotionEvent.ACTION_DOWN:
+								mTapX = evt.getX();
+								mTapY = evt.getY();
+								break;
+
+							case MotionEvent.ACTION_UP:
+								boolean clicked = (Math.abs(evt.getX() - mTapX) + Math.abs(evt.getY() - mTapY) < 10);
+								mTapX = 0;
+								mTapY = 0;
+								if(clicked) {
+									evt.setAction(MotionEvent.ACTION_DOWN);
+									trackingV.dispatchTouchEvent(evt);
+									evt.setAction(MotionEvent.ACTION_UP);
+									return trackingV.dispatchTouchEvent(evt);
+								}
+								break;
+						}
+
+						// adjust touch event location to web view
+						int offsetWebV[] = {0,0}, offsetTouchView[] = {0,0};
+						touchV.getLocationOnScreen( offsetTouchView );
+						webV.getLocationOnScreen( offsetWebV );
+						evt.offsetLocation(offsetTouchView[0] - offsetWebV[0], offsetTouchView[1] - offsetWebV[1]);
+
+						return webV.dispatchTouchEvent(evt);
+					}
+				};
+				unit.view.setOnTouchListener(t);
+
             	unit.ad = new NativeAd(getActivity(), adId);
             	unit.ad.setAdListener(new AdListener(){
             	    @Override
@@ -241,7 +285,7 @@ public class FacebookAdPlugin extends GenericAdPlugin {
 					jsonData = json.toString();
 				} catch(Exception e) {
 				}
-            	unit.ad.registerViewForInteraction(unit.view);
+            	unit.ad.registerViewForInteraction(unit.tracking);
 				fireEvent(__getProductShortName(), EVENT_AD_LOADED, jsonData);
         		break;
         	}
