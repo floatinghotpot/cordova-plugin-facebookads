@@ -7,7 +7,7 @@
 //
 
 #import <FBAudienceNetwork/FBAudienceNetwork.h>
-
+#import "UITapGestureRecognizer+Spec.h"
 #import "FacebookAdPlugin.h"
 
 #define TEST_BANNER_ID           @"726719434140206_777151452430337"
@@ -16,7 +16,7 @@
 
 #define OPT_DEVICE_HASH          @"deviceHash"
 
-@interface FacebookAdPlugin()<FBAdViewDelegate, FBInterstitialAdDelegate, FBNativeAdDelegate>
+@interface FacebookAdPlugin()<FBAdViewDelegate, FBInterstitialAdDelegate, FBNativeAdDelegate, UIGestureRecognizerDelegate>
 
 @property (assign) FBAdSize adSize;
 @property (nonatomic, retain) NSMutableDictionary* nativeads;
@@ -26,11 +26,29 @@
 
 @end
 
+
+// ------------------------------------------------------------------
+
+@interface UITrackingView : UIView
+
+@end
+
+@implementation UITrackingView
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+{
+    // Always ignore the touch event, so that we can scroll the webview beneath.
+    // We will inovke GestureRecognizer callback ourselves.
+    return nil;
+}
+@end
+
+// ------------------------------------------------------------------
+
 @interface FlexNativeAd : NSObject
 
 @property (nonatomic, retain) NSString* adId;
 @property (nonatomic, retain) FBNativeAd* ad;
-@property (nonatomic, retain) UIView* view;
+@property (nonatomic, retain) UITrackingView* view;
 @property (assign) int x,y,w,h;
 
 - (FlexNativeAd*) init;
@@ -53,6 +71,8 @@
 }
 
 @end
+
+// ------------------------------------------------------------------
 
 @implementation FacebookAdPlugin
 
@@ -210,6 +230,36 @@
     }
 }
 
+- (void)handleTapOnWebView:(UITapGestureRecognizer *)sender
+{
+    //NSLog(@"handleTapOnWeb");
+
+    for(id key in self.nativeads) {
+        FlexNativeAd* unit = (FlexNativeAd*) [self.nativeads objectForKey:key];
+        CGPoint point = [sender locationInView:unit.view];
+        if([unit.view pointInside:point withEvent:nil]) {
+            NSLog(@"Native Ad view area tapped");
+
+            NSArray* handlers = [unit.view gestureRecognizers];
+            for(id handler in handlers) {
+                if([handler isKindOfClass:[UITapGestureRecognizer class]]) {
+                    UITapGestureRecognizer* tapHandler = (UITapGestureRecognizer*) handler;
+
+                    // Here we call the injected method, defined in "UITapGestureRecognizer+Spec.m"
+                    if([tapHandler respondsToSelector:@selector(performTapWithView:andPoint:)]) {
+                        [tapHandler performTapWithView:unit.view andPoint:point];
+                    }
+                }
+            }
+        }
+    }
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+    shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+    return YES;
+}
+
 - (void)createNativeAd:(CDVInvokedUrlCommand *)command
 {
     NSLog(@"createNativeAd");
@@ -230,9 +280,15 @@
         unit.adId = adId;
         
         CGRect adRect = {{0,0},{0,0}};
-        unit.view = [[UIView alloc] initWithFrame:adRect];
+        unit.view = [[UITrackingView alloc] initWithFrame:adRect];
         [[self getView] addSubview:unit.view];
         
+        // add tap handler to handle tap on webview
+        UITapGestureRecognizer *webViewTapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapOnWebView:)];
+        webViewTapped.numberOfTapsRequired = 1;
+        webViewTapped.delegate = self;
+        [[self getView] addGestureRecognizer:webViewTapped];
+
         if(self.isTesting) {
             [unit.view setBackgroundColor:[[UIColor greenColor] colorWithAlphaComponent:0.2f]];
         }
