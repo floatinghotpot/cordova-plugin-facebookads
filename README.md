@@ -38,7 +38,7 @@ var ad_units = {
 	ios : { 
 		banner:"your_ad_place_id",
 		interstitial:"your_ad_place_id",
-        nativeAd:'your_ad_place_id"
+        nativeAd:"your_ad_place_id"
 	},
 	android : {
 		banner:"your_ad_place_id",
