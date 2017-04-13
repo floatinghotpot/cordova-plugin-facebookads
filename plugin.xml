@@ -22,7 +22,6 @@
     </js-module>
 
 	<dependency id="cordova-plugin-extension"/>
-	<dependency id="cordova-facebook-audnet-sdk"/>
 
     <!-- android -->
     <platform name="android">
@@ -43,6 +42,8 @@
         </config-file>
           
         <framework src="com.android.support:support-v4:+" />
+        <framework src="com.google.android.gms:play-services-ads:+"/>
+        <framework src="com.facebook.android:audience-network-sdk:4.+"/>
      </platform>
      
      <!-- ios -->
@@ -64,6 +65,7 @@
         <framework src="QuartzCore.framework"/>
         <framework src="OpenGLES.framework"/>
         <framework src="Security.framework"/>
+        <framework src="FBAudienceNetwork" type="podspec" spec="~> 4.21.0"/>
     </platform>
 
 </plugin>
