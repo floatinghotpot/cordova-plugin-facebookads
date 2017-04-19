@@ -65,7 +65,7 @@
         <framework src="QuartzCore.framework"/>
         <framework src="OpenGLES.framework"/>
         <framework src="Security.framework"/>
-        <framework src="FBAudienceNetwork" type="podspec" spec="~> 4.21.0"/>
+        <framework src="FBAudienceNetwork" type="podspec" spec="< 4.21.0"/>
     </platform>
 
 </plugin>
