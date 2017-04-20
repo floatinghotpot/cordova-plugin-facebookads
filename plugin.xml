@@ -13,9 +13,11 @@
     <repo>https://github.com/floatinghotpot/cordova-plugin-facebookads.git</repo>
     <issue>https://github.com/floatinghotpot/cordova-plugin-facebookads/issues</issue>
 
-	<engines>
-	    <engine name="cordova" version=">=3.0" />
-	</engines>
+    <engines>
+        <engine name="cordova" version=">=6.4.0"/>
+        <engine name="cordova-android" version=">=6.0.0"/>
+        <engine name="cordova-ios" version=">=4.3.0"/>
+    </engines>
 
     <js-module src="www/FacebookAds.js" name="FacebookAds">
         <clobbers target="window.FacebookAds" />
