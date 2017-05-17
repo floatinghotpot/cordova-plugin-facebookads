@@ -223,6 +223,11 @@ public class FacebookAdPlugin extends GenericAdPlugin {
             	    public void onAdClicked(Ad ad) {
             	    	fireAdEvent(EVENT_AD_LEAVEAPP, ADTYPE_NATIVE);
             	    }
+
+				    @Override
+				    public void onLoggingImpression(Ad ad) {
+						// Ad impression logged callback
+				    }
             	});
             	
             	nativeAds.put(adId, unit);
@@ -398,6 +403,11 @@ public class FacebookAdPlugin extends GenericAdPlugin {
     		public void onError(Ad arg0, AdError arg1) {
             	fireAdErrorEvent(EVENT_AD_FAILLOAD, arg1.getErrorCode(), arg1.getErrorMessage(), ADTYPE_BANNER);
     		}
+
+			@Override
+			public void onLoggingImpression(Ad ad) {
+				// Ad impression logged callback
+			}
         });
         return ad;
 	}
@@ -484,7 +494,12 @@ public class FacebookAdPlugin extends GenericAdPlugin {
     		public void onInterstitialDisplayed(Ad arg0) {
     			fireAdEvent(EVENT_AD_PRESENT, ADTYPE_INTERSTITIAL);
     		}
-        });
+
+			@Override
+			public void onLoggingImpression(Ad ad) {
+				// Ad impression logged callback
+			}
+		});
         return ad;
 	}
 
