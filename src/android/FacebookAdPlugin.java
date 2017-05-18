@@ -158,13 +158,14 @@ public class FacebookAdPlugin extends GenericAdPlugin {
             	FlexNativeAd unit = new FlexNativeAd();
             	unit.adId = adId;
             	unit.x = unit.y = 0;
-            	unit.w = unit.h = 80;
+				unit.w = unit.h = 4;
             	
             	unit.view = new View(getActivity());
 				unit.tracking = new View(getActivity());
             	layout.addView(unit.view, new RelativeLayout.LayoutParams(unit.w, unit.h));
 				layout.addView(unit.tracking, new RelativeLayout.LayoutParams(unit.w, unit.h));
             	if(isTesting) {
+					unit.tracking.setBackgroundColor(0x30FF0000);
                 	unit.view.setBackgroundColor(0x3000FF00);
             	}
 
@@ -290,7 +291,10 @@ public class FacebookAdPlugin extends GenericAdPlugin {
 					jsonData = json.toString();
 				} catch(Exception e) {
 				}
-            	unit.ad.registerViewForInteraction(unit.tracking);
+                if (unit.ad != null) {
+                  unit.ad.unregisterView();
+                  unit.ad.registerViewForInteraction(unit.tracking);
+                }
 				fireEvent(__getProductShortName(), EVENT_AD_LOADED, jsonData);
         		break;
         	}
@@ -348,6 +352,12 @@ public class FacebookAdPlugin extends GenericAdPlugin {
 	        			unit.view.setRight(unit.x+unit.w);
 	        			unit.view.setBottom(unit.y+unit.h);
 	        		}
+					if(unit.tracking != null) {
+						unit.tracking.setLeft(unit.x);
+						unit.tracking.setTop(unit.y);
+						unit.tracking.setRight(unit.x+unit.w);
+						unit.tracking.setBottom(unit.y+unit.h);
+					}
 	            }
 		    });
 		}

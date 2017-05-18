@@ -3,7 +3,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	id="cordova-plugin-facebookads"
-	version="4.22.1">
+	version="4.22.2">
       
     <name>FacebookAds</name>
 	<description>Cordova/PhoneGap Plugin for Facebook AudienceNetwork Ads</description>
@@ -13,9 +13,11 @@
     <repo>https://github.com/floatinghotpot/cordova-plugin-facebookads.git</repo>
     <issue>https://github.com/floatinghotpot/cordova-plugin-facebookads/issues</issue>
 
-	<engines>
-	    <engine name="cordova" version=">=3.0" />
-	</engines>
+  <engines>
+    <engine name="cordova" version=">=6.4.0"/>
+    <engine name="cordova-android" version=">=6.0.0"/>
+    <engine name="cordova-ios" version=">=4.3.0"/>
+  </engines>
 
     <js-module src="www/FacebookAds.js" name="FacebookAds">
         <clobbers target="window.FacebookAds" />
@@ -42,7 +44,7 @@
 			  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
         </config-file>
           
-        <framework src="com.android.support:support-v4:+" />
+		<framework src="com.android.support:support-v4:+" />
      </platform>
      
      <!-- ios -->
