@@ -162,8 +162,8 @@ public class FacebookAdPlugin extends GenericAdPlugin {
             	
             	unit.view = new View(getActivity());
 				unit.tracking = new View(getActivity());
-            	layout.addView(unit.view, new RelativeLayout.LayoutParams(unit.w, unit.h));
 				layout.addView(unit.tracking, new RelativeLayout.LayoutParams(unit.w, unit.h));
+				layout.addView(unit.view, new RelativeLayout.LayoutParams(unit.w, unit.h));
             	if(isTesting) {
 					unit.tracking.setBackgroundColor(0x30FF0000);
                 	unit.view.setBackgroundColor(0x3000FF00);
