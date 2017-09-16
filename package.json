@@ -1,5 +1,5 @@
 {
-  "name": "cordova-plugin-facebookads",
+  "name": "cordova-plugin-facebookads-pod",
   "version": "4.26.0",
   "description": "Cordova Plugin for Facebook AudienceNetwork Ads",
   "cordova": {
