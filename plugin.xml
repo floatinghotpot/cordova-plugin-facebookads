@@ -2,8 +2,8 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	id="cordova-plugin-facebookads"
-	version="4.23.2">
+	id="cordova-plugin-facebookads-pod"
+	version="4.26.0">
       
     <name>FacebookAds</name>
 	<description>Cordova/PhoneGap Plugin for Facebook AudienceNetwork Ads</description>
@@ -23,8 +23,7 @@
         <clobbers target="window.FacebookAds" />
     </js-module>
 
-	<dependency id="cordova-plugin-extension"/>
-	<dependency id="cordova-facebook-audnet-sdk"/>
+    <dependency id="cordova-plugin-extension"/>
 
     <!-- android -->
     <platform name="android">
@@ -36,16 +35,20 @@
         <source-file src="src/android/FacebookAdPlugin.java" target-dir="src/com/rjfun/cordova/facebookads" />
 
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
-			<activity android:name="com.facebook.ads.InterstitialAdActivity" 
-			android:configChanges="keyboardHidden|orientation|screenSize" />
+          <activity android:name="com.facebook.ads.InterstitialAdActivity"
+                    android:configChanges="keyboardHidden|orientation|screenSize" />
           </config-file>
         <config-file target="AndroidManifest.xml" parent="/*">
-			  <uses-permission android:name="android.permission.INTERNET" />
-			  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+          <uses-permission android:name="android.permission.INTERNET" />
+          <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
         </config-file>
           
-		<framework src="com.android.support:support-v4:+" />
-        <framework src="src/android/android-support.gradle" custom="true" type="gradleReference" />
+      <framework src="src/android/android-support.gradle" custom="true" type="gradleReference" />
+      <framework src="com.android.support:support-v4:+" />
+
+      <framework src="src/android/fb-adsdk.gradle" custom="true" type="gradleReference" />
+      <framework src="com.facebook.android:audience-network-sdk:4.+"/>
+      <framework src="com.google.android.gms:play-services-ads:+"/>
      </platform>
      
      <!-- ios -->
@@ -67,6 +70,9 @@
         <framework src="QuartzCore.framework"/>
         <framework src="OpenGLES.framework"/>
         <framework src="Security.framework"/>
+
+      <!-- required cordova 6.4.0 or higher -->
+      <framework src="FBAudienceNetwork" type="podspec" spec="~> 4.26.0"/>
     </platform>
 
 </plugin>

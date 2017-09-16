@@ -1,9 +1,9 @@
 {
   "name": "cordova-plugin-facebookads",
-  "version": "4.23.2",
+  "version": "4.26.0",
   "description": "Cordova Plugin for Facebook AudienceNetwork Ads",
   "cordova": {
-    "id": "cordova-plugin-facebookads",
+    "id": "cordova-plugin-facebookads-pod",
     "platforms": [
       "android",
       "ios"
