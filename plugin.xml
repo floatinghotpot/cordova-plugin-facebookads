@@ -70,9 +70,12 @@
         <framework src="QuartzCore.framework"/>
         <framework src="OpenGLES.framework"/>
         <framework src="Security.framework"/>
+        <framework src="libc++.tbd"/>
+        <framework src="libxml2.tbd"/>
 
       <!-- required cordova 6.4.0 or higher -->
-      <framework src="FBAudienceNetwork" type="podspec" spec="~> 4.26.0"/>
+      <framework src="FBAudienceNetwork" type="podspec" spec="~> 4.25.0"/>
+      <framework src="KVOController" type="podspec" spec="~> 1.2.0"/>
     </platform>
 
 </plugin>
