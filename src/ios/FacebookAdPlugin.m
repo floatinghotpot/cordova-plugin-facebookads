@@ -499,6 +499,7 @@
             NSString *socialContextForAd = nativeAd.socialContext;
             struct FBAdStarRating appRatingForAd = nativeAd.starRating;
             NSString *titleForAdButton = nativeAd.callToAction;
+            FBAdImage iconForAdChoice = nativeAd.adChoicesIcon;
             
             NSMutableDictionary* coverInfo = [[NSMutableDictionary alloc] init];
             [coverInfo setValue:[coverImage.url absoluteString] forKey:@"url"];
@@ -509,6 +510,14 @@
             [iconInfo setValue:[iconForAd.url absoluteString] forKey:@"url"];
             [iconInfo setValue:[NSNumber numberWithInt:iconForAd.width] forKey:@"width"];
             [iconInfo setValue:[NSNumber numberWithInt:iconForAd.height] forKey:@"height"];
+
+            NSMutableDictionary adchoiceInfo = [[NSMutableDictionary alloc] init];
+            [adchoiceInfo setValue:[nativeAd.adChoicesLinkURL absoluteString] forKey:@"onadchoice"];
+            [adchoiceInfo setValue:nativeAd.adChoicesText forKey:@"onadchoicetext"];
+            [adchoiceInfo setValue:[iconForAdChoice.url absoluteString] forKey:@"url"];
+            [adchoiceInfo setValue:[NSNumber numberWithInt:iconForAdChoice.width] forKey:@"width"];
+            [adchoiceInfo setValue:[NSNumber numberWithInt:iconForAdChoice.height] forKey:@"height"];
+
             
             NSMutableDictionary* adRes = [[NSMutableDictionary alloc] init];
             [adRes setValue:coverInfo forKey:@"coverImage"];
@@ -519,6 +528,7 @@
             [adRes setValue:[NSNumber numberWithFloat:appRatingForAd.value] forKey:@"rating"];
             [adRes setValue:[NSNumber numberWithInt:appRatingForAd.scale] forKey:@"ratingScale"];
             [adRes setValue:titleForAdButton forKey:@"buttonText"];
+            [adRes setValue:adchoiceInfo forKey:@"adchoice"];
             
             NSMutableDictionary* json = [[NSMutableDictionary alloc] init];
             [json setValue:[self __getProductShortName] forKey:@"adNetwork"];

@@ -28,13 +28,13 @@ import com.facebook.ads.*;
 import com.facebook.ads.NativeAd.Image;
 import com.facebook.ads.NativeAd.Rating;
 import com.rjfun.cordova.ad.GenericAdPlugin;
-
+import android.provider.Settings;
 public class FacebookAdPlugin extends GenericAdPlugin {
     private static final String LOGTAG = "FacebookAds";
 
-    private static final String TEST_BANNER_ID = "726719434140206_777151452430337";
-    private static final String TEST_INTERSTITIAL_ID = "726719434140206_777151589096990";
-    private static final String TEST_NATIVEAD_ID = "726719434140206_777151705763645";
+    private static final String TEST_BANNER_ID = "Your APP ID";
+    private static final String TEST_INTERSTITIAL_ID = "Your APP ID";
+    private static final String TEST_NATIVEAD_ID = "Your APP ID";
     
     private AdSize adSize;
     
@@ -44,6 +44,7 @@ public class FacebookAdPlugin extends GenericAdPlugin {
 	public static final String ACTION_CREATE_NATIVEAD = "createNativeAd";
 	public static final String ACTION_REMOVE_NATIVEAD = "removeNativeAd";
 	public static final String ACTION_SET_NATIVEAD_CLICKAREA = "setNativeAdClickArea";
+        public static final String ACTION_CLICK_ADCHOICE = "AdchoiceClicked";
 	
 	private RelativeLayout layout;
 	
@@ -127,7 +128,17 @@ public class FacebookAdPlugin extends GenericAdPlugin {
             this.setNativeAdClickArea(adid, x, y, w, h);
             result = new PluginResult(Status.OK);
             
-    	} else {
+    	} 
+        else if (ACTION_CLICK_ADCHOICE.equals(action)) {
+            String adid = inputs.optString(0);
+            int x = inputs.optInt(1);
+            int y = inputs.optInt(2);
+            int w = inputs.optInt(3);
+            int h = inputs.optInt(4);
+            this.setNativeAdClickArea(adid, x, y, w, h);
+            result = new PluginResult(Status.OK);
+            
+    	}else {
     		return super.execute(action, inputs, callbackContext);
     	}
     	
@@ -165,7 +176,7 @@ public class FacebookAdPlugin extends GenericAdPlugin {
 				layout.addView(unit.tracking, new RelativeLayout.LayoutParams(unit.w, unit.h));
 				layout.addView(unit.view, new RelativeLayout.LayoutParams(unit.w, unit.h));
             	if(isTesting) {
-					unit.tracking.setBackgroundColor(0x30FF0000);
+			unit.tracking.setBackgroundColor(0x30FF0000);
                 	unit.view.setBackgroundColor(0x3000FF00);
             	}
 
@@ -253,7 +264,7 @@ public class FacebookAdPlugin extends GenericAdPlugin {
 					String titleForAdButton = unit.ad.getAdCallToAction();
 					String textForAdBody = unit.ad.getAdBody();
 					Rating appRatingForAd = unit.ad.getAdStarRating();
-					
+					Image adChoiceIcon = unit.ad.getAdChoicesIcon();
 					JSONObject json = new JSONObject();
 					json.put("adNetwork", __getProductShortName());
 					json.put("adEvent", EVENT_AD_LOADED);
@@ -283,9 +294,20 @@ public class FacebookAdPlugin extends GenericAdPlugin {
                         iconInfo.put("width", iconForAd.getWidth());
                         iconInfo.put("height", iconForAd.getHeight());
                     }
+                    		JSONObject adchoiceInfo = new JSONObject();
+                    if(adChoiceIcon != null) {
+                        adchoiceInfo.put("url", adChoiceIcon.getUrl());
+                        adchoiceInfo.put("width", adChoiceIcon.getWidth());
+                        adchoiceInfo.put("height", adChoiceIcon.getHeight());
+                        unit.ad.getAdChoicesLinkUrl();
+                         adchoiceInfo.put("onadchoice", unit.ad.getAdChoicesLinkUrl());
+                        Log.d(LOGTAG, "unit.ad.getAdChoicesLinkUrl() : " + unit.ad.getAdChoicesLinkUrl());
+//                           
+                    }
 					
 					adRes.put("coverImage", coverInfo);
 					adRes.put("icon", iconInfo);
+                                        adRes.put("adchoice", adchoiceInfo);
 					json.put("adRes", adRes);
 					
 					jsonData = json.toString();
@@ -293,14 +315,16 @@ public class FacebookAdPlugin extends GenericAdPlugin {
 				}
                 if (unit.ad != null) {
                   unit.ad.unregisterView();
+                 
                   unit.ad.registerViewForInteraction(unit.tracking);
                 }
+                
 				fireEvent(__getProductShortName(), EVENT_AD_LOADED, jsonData);
         		break;
         	}
         }
     }
-    
+
     public void removeNativeAd(final String adId) {
 	    final Activity activity = getActivity();
 	    activity.runOnUiThread(new Runnable(){
@@ -336,7 +360,7 @@ public class FacebookAdPlugin extends GenericAdPlugin {
 			unit.h = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, h, metrics);
 
         	View rootView = getView().getRootView();
-        	int offsetRootView[] = {0,0}, offsetMainView[] = {0,0};
+        	int offsetRootView[] = {0,0}, offsetMainView[] = {2,2};
         	rootView.getLocationOnScreen( offsetRootView );
         	getView().getLocationOnScreen( offsetMainView );
         	unit.x += (offsetMainView[0] - offsetRootView[0]);
@@ -370,14 +394,22 @@ public class FacebookAdPlugin extends GenericAdPlugin {
 		if(options.has(OPT_AD_SIZE)) {
 			this.adSize = __AdSizeFromString(options.optString(OPT_AD_SIZE));
 		}
-		
+//                if(isTesting) {
+//			testTraffic = true;
+//		 String ANDROID_ID = Settings.Secure.getString(cordova.getActivity().getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+//            String deviceId = md5(ANDROID_ID).toUpperCase();
+//            Log.d(LOGTAG, "Facebook Device Id" + deviceId);
+//            AdSettings.addTestDevice(deviceId);
+//            this.deviceHash = options.optString(deviceId);
+//                Log.d(LOGTAG, "set device hash: " + this.deviceHash);
 		if(isTesting) {
 			testTraffic = true;
 			
         	if(options.has(OPT_DEVICE_HASH)) {
         		this.deviceHash = options.optString( OPT_DEVICE_HASH );
                 Log.d(LOGTAG, "set device hash: " + this.deviceHash);
-    			AdSettings.addTestDevice(this.deviceHash);
+    			AdSettings.addTestDevice("bbbb29bbf199262cb14c924d692b11ef");
+
         	}
 			
 			SharedPreferences adPrefs = getActivity().getSharedPreferences("FBAdPrefs", 0);
@@ -389,7 +421,8 @@ public class FacebookAdPlugin extends GenericAdPlugin {
             Log.d(LOGTAG, "auto set device hash: " + this.deviceHash);
             AdSettings.addTestDevice(deviceIdHash);
 		}
-	}
+//	}
+        }
 
 	@Override
 	protected View __createAdView(String adId) {
