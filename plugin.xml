@@ -2,15 +2,15 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	id="cordova-plugin-facebookads"
-	version="4.23.2">
+	id="bmo-cordova-plugin-facebookads"
+	version="4.23.3">
       
     <name>FacebookAds</name>
 	<description>Cordova/PhoneGap Plugin for Facebook AudienceNetwork Ads</description>
 	<author>Liming Xie</author>
 	<license>MIT</license>
 	<keywords>rjfun,ad,admob,iad,mopub,facebook,audience</keywords>
-    <repo>https://github.com/floatinghotpot/cordova-plugin-facebookads.git</repo>
+    <repo>https://github.com/BisManOnline/bmo-cordova-plugin-facebookads.git</repo>
     <issue>https://github.com/floatinghotpot/cordova-plugin-facebookads/issues</issue>
 
   <engines>
