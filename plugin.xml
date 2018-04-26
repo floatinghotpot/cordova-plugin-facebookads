@@ -45,7 +45,7 @@
         </config-file>
           
 		<framework src="com.android.support:support-v4:+" />
-        <framework src="src/android/android-support.gradle" custom="true" type="gradleReference" />
+     
      </platform>
      
      <!-- ios -->
